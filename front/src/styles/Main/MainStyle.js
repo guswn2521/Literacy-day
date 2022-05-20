@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { FlexBox, FlexBoxCenter, HeadingTwo } from "styles/Components/CommonStyle";
+import {
+  FlexBox,
+  FlexBoxCenter,
+  HeadingTwo,
+} from "styles/Components/CommonStyle";
+import { Link } from "react-router-dom";
 
 export const MainContainer = styled.section`
   display: flex;
@@ -49,4 +54,9 @@ export const PopularityPostContainer = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 16px;
   padding: 0 20px;
+`;
+
+export const GetMoreLink = styled(Link)`
+  display: block;
+  text-align: center;
 `;

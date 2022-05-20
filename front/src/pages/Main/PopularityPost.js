@@ -2,9 +2,8 @@ import { useGetPostList } from "queries/postQuery";
 import Loading from "components/Loading";
 import PostCard from "pages/Post/PostCard";
 import { useQueryClient } from "react-query";
-import { PopularityPostContainer } from "styles/Main/MainStyle";
+import { GetMoreLink, PopularityPostContainer } from "styles/Main/MainStyle";
 import { LABEL, URI } from "utils/constants";
-import { Link } from "react-router-dom";
 
 function PopularityPost() {
   const queryClient = useQueryClient();
@@ -16,7 +15,8 @@ function PopularityPost() {
 
   return (
     <section>
-      <Link to={`/posts?${URI.SORT_LIKE}`}>{LABEL.GET_MORE}</Link> &nbsp;
+      <GetMoreLink to={`/posts?${URI.SORT_LIKE}`}>{LABEL.GET_MORE}</GetMoreLink>{" "}
+      &nbsp;
       <PopularityPostContainer>
         {data.pages[0].posts.map((post) => (
           <PostCard
