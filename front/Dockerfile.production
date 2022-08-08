@@ -1,20 +1,22 @@
 FROM node:16.14-alpine as builder
 
-ENV HOME=/elice/react_docker
+ENV PATH /front/node_modules/.bin:$PATH
 
-WORKDIR $HOME
+WORKDIR /front
 
-COPY package*.json yarn.lock $HOME/
+# RUN apk add --update python
+
+COPY package*.json yarn.lock ./
 
 RUN yarn install --silent --progress=false
 
 # 소스를 작업폴더로 복사하고 빌드
-COPY . $HOME
+COPY . .
 
-RUN yarn build --silent --progress=false
+# RUN yarn build --silent --progress=false
 
 # linux 서버에 저장된 env 파일(mongoDB Atlas 개인디비 주소, 카카오 redirectURL 등 저장) 복사!
-COPY /home/elice/env $HOME/node_docker/
+# COPY /home/elice/env $HOME/node_docker/
 
 ### nginx 사용
 FROM nginx
@@ -26,7 +28,7 @@ RUN rm -rf /etc/nginx/conf.d/default.conf
 COPY ./conf/conf.d/nginx.conf /etc/nginx/conf.d
 
 # 위에서 생성한 앱의 빌드산출물을 nginx의 실플 앱이 사용하던 폴더로 이동
-COPY --from=builder /elice/node_docker/build /usr/share/nginx/html
+# COPY --from=builder /elice/node_docker/build /usr/share/nginx/html
 
 # 80포트 오픈하고 nginx 실행
 EXPOSE 80

@@ -11,7 +11,7 @@ RUN yarn install --silent --progress=false
 # 소스를 작업폴더로 복사하고 빌드
 COPY . $HOME
 
-RUN yarn build --silent --progress=false
+# RUN yarn build --silent --progress=false
 
 ### nginx 사용
 FROM nginx
